@@ -34,6 +34,20 @@ const stringToNumberConverter = (value: string) => {
     return isNaN(valueNumber) ? null : valueNumber;
 };
 
+const dateFilterParams = {
+    comparator: (filterValue: Date, value: string) => {
+        const filterValueDateTime = filterValue.getTime();
+        const valueDateTime = dateStringToTime(value);
+        if (valueDateTime == null || valueDateTime < filterValueDateTime) {
+            return -1;
+        }
+        if (valueDateTime > filterValueDateTime) {
+            return 1;
+        }
+        return 0;
+    },
+};
+
 const columnDefs: ColDef[] = [
     {
         field: "designation",
@@ -45,6 +59,8 @@ const columnDefs: ColDef[] = [
         field: "discovery_date",
         headerName: "Discovery Date",
         comparator: dateComparator,
+        filter: "agDateColumnFilter",
+        filterParams: dateFilterParams,
     },
     {
         field: "h_mag",
