@@ -65,6 +65,7 @@ Within this repo is a demo UI that our team needs to make some changes to before
 
 After completing this project, please push any changes you made to a publicly accessible GitLab or GitHub repository and include that link in an email to your contact at PCI. Thank you!
 
-### My Assumptions
+### My Assumptions/Initiatives
 
 1. I'm assuming that Designation is sorted in ascending order by default.
+2. I also added Date Filter for Discovery Date column
