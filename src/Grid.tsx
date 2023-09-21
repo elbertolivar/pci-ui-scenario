@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
 import {
     ColDef,
@@ -70,7 +70,6 @@ const columnDefs: ColDef[] = [
     {
         field: "designation",
         headerName: "Designation",
-        sort: "asc",
         filter: true,
         comparator: stringComparator,
     },
@@ -140,6 +139,8 @@ const columnDefs: ColDef[] = [
 ];
 
 const NeoGrid = (): JSX.Element => {
+    const gridRef = useRef<AgGridReact>(null);
+
     const title = "Near-Earth Object Overview";
 
     const defaultColDef = useMemo(() => {
@@ -147,6 +148,17 @@ const NeoGrid = (): JSX.Element => {
             unSortIcon: true,
             sortable: true,
         };
+    }, []);
+
+    const clearFiltersAndSort = useCallback(() => {
+        if (gridRef.current) {
+            // Reset all filters
+            gridRef.current.api.setFilterModel(null);
+            // Clear all sorts
+            gridRef.current.columnApi.applyColumnState({
+                defaultState: { sort: null },
+            });
+        }
     }, []);
 
     useEffect(() => {
@@ -157,8 +169,12 @@ const NeoGrid = (): JSX.Element => {
         <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
             <div className={styles.header}>
                 <h1>{title}</h1>
+                <button type="button" onClick={clearFiltersAndSort}>
+                    Clear Filters and Sorters
+                </button>
             </div>
             <AgGridReact
+                ref={gridRef}
                 defaultColDef={defaultColDef}
                 rowData={data}
                 columnDefs={columnDefs}
