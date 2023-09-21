@@ -67,5 +67,5 @@ After completing this project, please push any changes you made to a publicly ac
 
 ### My Assumptions/Initiatives
 
-1. I'm assuming that Designation is sorted in ascending order by default.
-2. I also added Date Filter for Discovery Date column
+1. I've added Date Filter for Discovery Date column
+2. I've formatted the numbers for readability

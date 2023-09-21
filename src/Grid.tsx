@@ -41,6 +41,10 @@ const dateValueFormatter = (params: ValueFormatterParams) => {
         : "";
 };
 
+const numberValueFormatter = (params: ValueFormatterParams) => {
+    return params.value ? params.value.toLocaleString() : "";
+};
+
 const columnDefs: ColDef[] = [
     {
         field: "designation",
@@ -59,36 +63,42 @@ const columnDefs: ColDef[] = [
         field: "h_mag",
         headerName: "H (mag)",
         valueGetter: numberValueGetter,
+        valueFormatter: numberValueFormatter,
         filter: "agNumberColumnFilter",
     },
     {
         field: "moid_au",
         headerName: "MOID (au)",
         valueGetter: numberValueGetter,
+        valueFormatter: numberValueFormatter,
         filter: "agNumberColumnFilter",
     },
     {
         field: "q_au_1",
         headerName: "q (au)",
         valueGetter: numberValueGetter,
+        valueFormatter: numberValueFormatter,
         filter: "agNumberColumnFilter",
     },
     {
         field: "q_au_2",
         headerName: "Q (au)",
         valueGetter: numberValueGetter,
+        valueFormatter: numberValueFormatter,
         filter: "agNumberColumnFilter",
     },
     {
         field: "period_yr",
         headerName: "Period (yr)",
         valueGetter: numberValueGetter,
+        valueFormatter: numberValueFormatter,
         filter: "agNumberColumnFilter",
     },
     {
         field: "i_deg",
         headerName: "Inclination (deg)",
         valueGetter: numberValueGetter,
+        valueFormatter: numberValueFormatter,
         filter: "agNumberColumnFilter",
     },
     { field: "pha", headerName: "Potentially Hazardous", filter: true },
