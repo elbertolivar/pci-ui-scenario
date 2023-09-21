@@ -70,3 +70,8 @@ After completing this project, please push any changes you made to a publicly ac
 1. I've added Date Filter for Discovery Date column
 2. I've formatted the numbers for readability
 3. For copying the information from this grid to Excel, I've set the `enableRangeSelection` and `copyHeadersToClipboard` to true. At the moment, it doesn't work since we are using the Community version of React Data Grid. It will only work if we have the Enterprise version of the AG plugin installed. For reference: [React Data Grid - Clipboard](https://www.ag-grid.com/react-data-grid/clipboard/).
+
+### Result
+<img width="1440" alt="Screenshot 2023-09-21 at 10 54 22 PM" src="https://github.com/elbertolivar/pci-ui-scenario/assets/36879102/fd1fc8f0-fa91-40b2-84df-66dc9bbe4d01">
+
+
