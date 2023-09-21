@@ -29,44 +29,66 @@ const dateComparator = (valueA: string, valueB: string) => {
     return aDateTime - bDateTime;
 };
 
-const numberComparator = (valueA: string, valueB: string) => {
-    const aNumber = parseFloat(valueA);
-    const bNumber = parseFloat(valueB);
-    if (isNaN(aNumber) && isNaN(bNumber)) {
-        return 0;
-    }
-    if (isNaN(aNumber)) {
-        return -1;
-    }
-    if (isNaN(bNumber)) {
-        return 1;
-    }
-    return aNumber - bNumber;
+const stringToNumberConverter = (value: string) => {
+    const valueNumber = Number(value);
+    return isNaN(valueNumber) ? null : valueNumber;
 };
 
 const columnDefs: ColDef[] = [
-    { field: "designation", headerName: "Designation", sort: "asc" },
+    {
+        field: "designation",
+        headerName: "Designation",
+        sort: "asc",
+        filter: true,
+    },
     {
         field: "discovery_date",
         headerName: "Discovery Date",
         comparator: dateComparator,
     },
-    { field: "h_mag", headerName: "H (mag)", comparator: numberComparator },
-    { field: "moid_au", headerName: "MOID (au)", comparator: numberComparator },
-    { field: "q_au_1", headerName: "q (au)", comparator: numberComparator },
-    { field: "q_au_2", headerName: "Q (au)", comparator: numberComparator },
+    {
+        field: "h_mag",
+        headerName: "H (mag)",
+        valueGetter: (params) => stringToNumberConverter(params.data.h_mag),
+        filter: "agNumberColumnFilter",
+    },
+    {
+        field: "moid_au",
+        headerName: "MOID (au)",
+        valueGetter: (params) => stringToNumberConverter(params.data.moid_au),
+        filter: "agNumberColumnFilter",
+    },
+    {
+        field: "q_au_1",
+        headerName: "q (au)",
+        valueGetter: (params) => stringToNumberConverter(params.data.q_au_1),
+        filter: "agNumberColumnFilter",
+    },
+    {
+        field: "q_au_2",
+        headerName: "Q (au)",
+        valueGetter: (params) => stringToNumberConverter(params.data.q_au_2),
+        filter: "agNumberColumnFilter",
+    },
     {
         field: "period_yr",
         headerName: "Period (yr)",
-        comparator: numberComparator,
+        valueGetter: (params) => stringToNumberConverter(params.data.period_yr),
+        filter: "agNumberColumnFilter",
     },
     {
         field: "i_deg",
         headerName: "Inclination (deg)",
-        comparator: numberComparator,
+        valueGetter: (params) => stringToNumberConverter(params.data.i_deg),
+        filter: "agNumberColumnFilter",
     },
-    { field: "pha", headerName: "Potentially Hazardous" },
-    { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true },
+    { field: "pha", headerName: "Potentially Hazardous", filter: true },
+    {
+        field: "orbit_class",
+        headerName: "Orbit Class",
+        enableRowGroup: true,
+        filter: true,
+    },
 ];
 
 const NeoGrid = (): JSX.Element => {
