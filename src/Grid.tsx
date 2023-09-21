@@ -45,12 +45,34 @@ const numberValueFormatter = (params: ValueFormatterParams) => {
     return params.value ? params.value.toLocaleString() : "";
 };
 
+const yesNoValueFormatter = (params: ValueFormatterParams) => {
+    const value = params.value.toLowerCase();
+    if (value === "y") {
+        return "Yes";
+    } else if (value === "n") {
+        return "No";
+    }
+    return "";
+};
+
+const stringComparator = (valueA: string, valueB: string) => {
+    const aValueLower = valueA.toLowerCase();
+    const bValueLower = valueB.toLowerCase();
+    if (aValueLower > bValueLower) {
+        return 1;
+    } else if (aValueLower < bValueLower) {
+        return -1;
+    }
+    return 0;
+};
+
 const columnDefs: ColDef[] = [
     {
         field: "designation",
         headerName: "Designation",
         sort: "asc",
         filter: true,
+        comparator: stringComparator,
     },
     {
         field: "discovery_date",
@@ -101,12 +123,19 @@ const columnDefs: ColDef[] = [
         valueFormatter: numberValueFormatter,
         filter: "agNumberColumnFilter",
     },
-    { field: "pha", headerName: "Potentially Hazardous", filter: true },
+    {
+        field: "pha",
+        headerName: "Potentially Hazardous",
+        valueFormatter: yesNoValueFormatter,
+        filter: true,
+        comparator: stringComparator,
+    },
     {
         field: "orbit_class",
         headerName: "Orbit Class",
         enableRowGroup: true,
         filter: true,
+        comparator: stringComparator,
     },
 ];
 
